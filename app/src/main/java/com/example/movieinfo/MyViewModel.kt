@@ -5,28 +5,28 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MyViewModel : ViewModel() {
-    private val contentLiveData = MutableLiveData<String>()
-    val _contentLiveData: LiveData<String> = contentLiveData
-    private val categoryLiveData = MutableLiveData<Category>()
-    val _categoryLiveData: LiveData<Category> = categoryLiveData
-    private val radioButtonIdLiveData = MutableLiveData<Int>()
-    val _radioButtonIdLiveData: LiveData<Int> = radioButtonIdLiveData
+    private val _contentLiveData = MutableLiveData<String>()
+    val contentLiveData: LiveData<String> = this._contentLiveData
+    private val _categoryLiveData = MutableLiveData<Category>()
+    val categoryLiveData: LiveData<Category> = this._categoryLiveData
+    private val _radioButtonIdLiveData = MutableLiveData<Int>()
+    val radioButtonIdLiveData: LiveData<Int> = this._radioButtonIdLiveData
 
     init {
-        contentLiveData.value = ""
-        categoryLiveData.value = Category.empty
-        radioButtonIdLiveData.value = -1
+        this._contentLiveData.value = ""
+        this._categoryLiveData.value = Category.empty
+        this._radioButtonIdLiveData.value = -1
     }
     // 내용 라이브데이터 변경
     fun setContent(content: String) {
-        contentLiveData.value = content
+        this._contentLiveData.value = content
     }
     // 카테고리 라이브데이터 변경
     fun setCategory(category: Category) {
-        categoryLiveData.value = category
+        this._categoryLiveData.value = category
     }
     // 선택한 라디오버튼 아이디 라이브데이터 변경
     fun setRadioButtonId(id: Int) {
-        radioButtonIdLiveData.value = id
+        this._radioButtonIdLiveData.value = id
     }
 }

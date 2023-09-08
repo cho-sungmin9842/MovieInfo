@@ -2,10 +2,7 @@ package com.example.movieinfo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -15,7 +12,6 @@ import com.example.movieinfo.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -43,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             addItemDecoration(DividerItemDecoration(this@MainActivity, LinearLayout.VERTICAL))
         }
         // 검색한 내용이 없고 카테고리 라디오 버튼을 선택하지 않은 경우
-        if (viewModel._contentLiveData.value == "" && viewModel._categoryLiveData.value == Category.empty && viewModel._radioButtonIdLiveData.value == -1) {
+        if (viewModel.contentLiveData.value == "" && viewModel.categoryLiveData.value == Category.empty && viewModel.radioButtonIdLiveData.value == -1) {
             binding.radioGroup.isVisible = false
             getMovieList()
             radioListener()
@@ -52,19 +48,19 @@ class MainActivity : AppCompatActivity() {
         // 검색할 내용과 해당 카테고리에 맞는 라디오 버튼을 클릭한 경우
         else {
             binding.radioGroup.isVisible = true
-            binding.radioGroup.check(viewModel._radioButtonIdLiveData.value ?: return)
-            when (viewModel._categoryLiveData.value) {
+            binding.radioGroup.check(viewModel.radioButtonIdLiveData.value ?: return)
+            when (viewModel.categoryLiveData.value) {
                 Category.empty -> {}
                 Category.actor -> {
-                    getMovieListForCategory(actor = viewModel._contentLiveData.value ?: return)
+                    getMovieListForCategory(actor = viewModel.contentLiveData.value ?: return)
                 }
 
                 Category.title -> {
-                    getMovieListForCategory(title = viewModel._contentLiveData.value ?: return)
+                    getMovieListForCategory(title = viewModel.contentLiveData.value ?: return)
                 }
 
                 Category.director -> {
-                    getMovieListForCategory(director = viewModel._contentLiveData.value ?: return)
+                    getMovieListForCategory(director = viewModel.contentLiveData.value ?: return)
                 }
 
                 else -> {}
